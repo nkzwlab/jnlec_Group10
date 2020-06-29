@@ -6,4 +6,5 @@
     <p>作者: <input type="text" name="book_author" value="{{book_author if book_author}}"> </p>
     <p> <input type="submit" value="更新"> </p>
 </form>
+<a href="{{ url_for('bookshelf') }}">本棚に戻る</a>
 {% endblock %}
