@@ -1,1 +1,17 @@
-<h1>login page</h1>
+{% extends "base.html" %}
+{% block head %} <title>login</title> {% endblock %}
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endwith %}
+<h1>ログイン画面</h1>
+<form action="#" method="POST">
+    <p>ユーザーネーム: <input type="text" name="username"> </p>
+    <p>パスワード: <input type="text" name="password"> </p>
+    <p> <input type="submit" value="ログイン"> </p>
+</form>
+
+{% endblock %}
