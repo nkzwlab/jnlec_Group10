@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta, datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt  # PWのハッシング用 6.30 hhiromasa
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -9,24 +10,27 @@ app.config['SQLALCHEMY_NATIVE_UNICODE'] = 'utf-8'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # disable warnings
 app.permanent_session_lifetime = timedelta(
     minutes=15)  # セッション時間。使わないかも  6.29 hhiromasa
+bcrypt = Bcrypt(app)  # PWのハッシング用 6.30 hhiromasa
 
 db = SQLAlchemy(app)
 
 # -------------------------------------------models  6.29 hhiromasa-------------------------------------------
 
-"""
-#ユーザ管理、本の感想文の投稿とかできたら面白そう。
+
+# ユーザ管理、本の感想文の投稿とかできたら面白そう。
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(50), unique=True, nullable=False)
+    #email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
-    books = db.relationship('Post', backref='author', lazy=True)
+    #posts = db.relationship('Post', backref='author', lazy=True)
+    #books = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}','{self.email}')"
 
+
+"""
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,30 +60,52 @@ class Book(db.Model):
 def home():  # ホームページ
     return render_template("index.html")
 
-# -------------------------------------------posts  6.29 hhiromasa-------------------------------------------
+# -------------------------------------------posts 6.30 hhiromasa-------------------------------------------
+
+
+@ app.route("/register/", methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        hashed_password = bcrypt.generate_password_hash(
+            password).decode('utf-8')
+        user = User(username=username, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f"ようこそ{username}さん！", "info")
+        return redirect(url_for("login"))
+    else:
+        return render_template("register.html")
+
+
+@ app.route("/login/", methods=["POST", "GET"])
+def login():
+    return render_template("login.html")
+# -------------------------------------------posts 6.29 hhiromasa-------------------------------------------
 
 
 """
 #本の感想文の投稿とかできたら面白そう
-@ app.route("/post")
+@ app.route("/post/")
 def post():
     # DBに投稿追加
     return render_template("post.html")
 
 
-@ app.route("/create_post")
+@ app.route("/create_post/")
 def create_post():
     # DBに投稿追加
     return render_template("create_post.html")
 
 
-@ app.route("/delete_post", methods=["POST", "GET"])
+@ app.route("/delete_post/", methods=["POST", "GET"])
 def delete_post():
     # ここでDBから投稿削除。削除し終わったらリダイレクト
     flash(f"投稿を削除しました", "info")
     return redirect(url_for("bookshelf"))
 """
-# -------------------------------------------book shelf  6.29 hhiromasa-------------------------------------------
+# -------------------------------------------book shelf 6.29 hhiromasa-------------------------------------------
 
 
 @ app.route("/bookshelf/")
