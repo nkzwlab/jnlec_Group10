@@ -2,9 +2,9 @@
 {% block head %} <title>add book</title> {% endblock %}
 {% block body %}
 <form action="#" method="POST">
-    <p>題名: <input type="text" name="title" value="{{title if title}}"> </p>
-    <p>作者: <input type="text" name="book_author" value="{{book_author if book_author}}"> </p>
-    <p> <input type="submit" value="更新"> </p>
+    <p　class="form-group">題名: <input type="text" name="title" value="{{title if title}}" class="form-control"> </p>
+    <p　class="form-group">作者: <input type="text" name="book_author" value="{{book_author if book_author}}" class="form-control"> </p>
+    <p> <input type="submit" value="更新" class="btn btn-primary mb-2"> </p>
 </form>
 <a href="{{ url_for('bookshelf') }}">本棚に戻る</a>
 {% endblock %}
