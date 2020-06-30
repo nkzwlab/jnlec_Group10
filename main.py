@@ -3,7 +3,7 @@ from datetime import timedelta, datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt  # PWのハッシング用 6.30 hhiromasa
 # ログイン管理用 6.30 hhiromasa
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -82,8 +82,8 @@ def home():  # ホームページ
 
 @ app.route("/register/", methods=["POST", "GET"])
 def register():
-    # if current_user.is_authenticated:
-    #    return redirect(url_for('bookshelf'))
+    if current_user.is_authenticated:
+        return redirect(url_for('bookshelf'))
 
     if request.method == "POST":
         username = request.form["username"]
@@ -106,8 +106,8 @@ def register():
 
 @ app.route("/login/", methods=["POST", "GET"])
 def login():
-    # if current_user.is_authenticated:
-    #    return redirect(url_for('bookshelf'))
+    if current_user.is_authenticated:
+        return redirect(url_for('bookshelf'))
 
     if request.method == "POST":
         user = User.query.filter_by(username=request.form["username"]).first()
@@ -155,7 +155,7 @@ def delete_post():
 @ app.route("/bookshelf/")
 @login_required
 def bookshelf():  # 本棚(本一覧)を表示
-    Books = Book.query.all()
+    Books = Book.query.filter_by(author=current_user).all()
     return render_template("bookshelf.html", Books=Books)
 
 
@@ -166,7 +166,8 @@ def add_book():
     if request.method == "POST":
         title = request.form["title"]
         book_author = request.form["book_author"]
-        book = Book(title=title, book_author=book_author)
+        book = Book(title=title, book_author=book_author,
+                    author=current_user)
         db.session.add(book)
         db.session.commit()
         flash(f"本を追加しました", "info")
@@ -184,10 +185,8 @@ def update_book(book_id):
     if request.method == "POST":  # もしrequestがPOSTだったら(formが送信されたら)DBの内容を更新
         title = request.form["title"]
         book_author = request.form["book_author"]
-        author = current_user
         book.title = title
         book.book_author = book_author
-        book.author = author
         db.session.commit()
         flash(f"変更を保存しました", "info")
     else:  # 　もしrequestがGETだったら(formを開いただけなら)既存情報をformのvalueに入れた状態で表示
