@@ -2,8 +2,8 @@
 {% block head %} <title>create_post</title> {% endblock %}
 {% block body %}
 <form action="#" method="POST">
-    <p　class="form-group">題名: <input type="text" name="title" value="{{title if title}}" class="form-control"> </p>
-    <p　class="form-group">感想: <input type="text" name="title" value="{{title if title}}" class="form-control"> </p>
+    <p　class="form-group">題名: <input type="text" name="title" class="form-control"> </p>
+    <p　class="form-group">感想: <input type="text" name="content" class="form-control"> </p>
     <p> <input type="submit" value="投稿" class="btn btn-primary mb-2"> </p>
 </form>
 <a href="{{ url_for('post') }}">投稿サイトに戻る</a>
