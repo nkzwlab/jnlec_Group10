@@ -20,5 +20,5 @@
 <a href="{{ url_for('delete_book', book_id = book.id) }}">本を削除</a>
 <hr>
 {% endfor %}
-<a href="{{ url_for('add_book') }}">本を追加する</a>
+<a href="{{ url_for('add_book') }}">本を追加する</a><a href="{{ url_for('post') }}">投稿サイトへ</a>
 {% endblock %}

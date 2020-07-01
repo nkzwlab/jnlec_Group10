@@ -45,7 +45,7 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}','{self.email}')"
 
 
-"""
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +58,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
-"""
+
 
 
 class Book(db.Model):
@@ -129,7 +129,7 @@ def logout():
     # -------------------------------------------posts 6.29 hhiromasa-------------------------------------------
 
 
-"""
+
 #本の感想文の投稿とかできたら面白そう
 @ app.route("/post/")
 def post():
@@ -148,7 +148,7 @@ def delete_post():
     # ここでDBから投稿削除。削除し終わったらリダイレクト
     flash(f"投稿を削除しました", "info")
     return redirect(url_for("bookshelf"))
-"""
+
 # -------------------------------------------book shelf 6.29 hhiromasa-------------------------------------------
 
 
