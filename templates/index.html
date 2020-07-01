@@ -1,7 +1,26 @@
-/ : index.html (ここ)<br>
-/bookshelf/ : 本棚。書籍管理のメインページ<br>
-/add_book/　: 本を追加するための form<br>
-/update_book/int:book_id/ : 本を更新するための form<br>
-/delete_book/int:book_id/ : 本を削除するための form<br>
-/post : <br>
-/create_post :
+{% extends "base.html" %}
+{% block head %}
+<link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+
+<title>Bookshelf</title>
+
+{% endblock %}
+{% block body %}
+
+
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">Cover your page.</h1>
+    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text,
+        and add your own fullscreen background photo to make it your own.</p>
+    <p class="lead">
+        <a href="{{ url_for('login') }}">ログイン</a><a href="{{ url_for('register') }}">新規登録</a>
+    </p>
+</main>
+
+
+{% endblock %}
