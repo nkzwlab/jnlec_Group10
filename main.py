@@ -38,14 +38,14 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     #email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    #posts = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', backref='author', lazy=True)
     books = db.relationship('Book', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}','{self.email}')"
 
 
-"""
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +58,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
-"""
+
 
 
 class Book(db.Model):
@@ -129,26 +129,41 @@ def logout():
     # -------------------------------------------posts 6.29 hhiromasa-------------------------------------------
 
 
-"""
+
 #本の感想文の投稿とかできたら面白そう
 @ app.route("/post/")
+@login_required
 def post():
-    # DBに投稿追加
-    return render_template("post.html")
+    Posts = Post.query.filter_by(author=current_user).all()
+    return render_template("post.html", Posts=Posts)
 
 
-@ app.route("/create_post/")
+@ app.route("/create_post/", methods=["POST", "GET"])
+@login_required
 def create_post():
-    # DBに投稿追加
-    return render_template("create_post.html")
+    # もしrequestがPOSTだったら(formが送信されたら)formの内容をDBに追加
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+        post = Post(title=title, content=content,
+                    author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash(f"投稿を追加しました", "info")
+        return redirect(url_for("post"))
+    else:  # もしrequestがGETだったら(formを開いただけなら)formを表示
+        return render_template("create_post.html")
 
 
 @ app.route("/delete_post/", methods=["POST", "GET"])
 def delete_post():
     # ここでDBから投稿削除。削除し終わったらリダイレクト
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
     flash(f"投稿を削除しました", "info")
-    return redirect(url_for("bookshelf"))
-"""
+    return redirect(url_for("post"))
+
 # -------------------------------------------book shelf 6.29 hhiromasa-------------------------------------------
 
 

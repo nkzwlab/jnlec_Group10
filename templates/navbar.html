@@ -1,9 +1,19 @@
-<nav class="navbar navbar-light bg-light">
-  <span class="navbar-brand mb-0 h1">navbar</span>
+<!-- <nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">Bookshelf</span>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Bookshelf</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto w-100 justify-content-end">
+      {% if current_user.is_authenticated %}
+      <a class="nav-item nav-link" href="{{ url_for('logout') }}">ログアウト</a>
+      {% else %}
+      <a class="nav-item nav-link" href="{{ url_for('login') }}">ログイン</a>
+      <a class="nav-item nav-link" href="{{ url_for('register')}}">新規登録</a>
+      {% endif %} </div>
+  </div>
 </nav>
-{% if current_user.is_authenticated %}
-<a href="{{ url_for('logout') }}">ログアウト</a>
-{% else %}
-<a href="{{ url_for('login') }}">ログイン</a>
-<a href="{{ url_for('register')}}">新規登録</a>
-{% endif %}

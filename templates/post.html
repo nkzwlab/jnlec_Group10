@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %} <title>post</title> {% endblock %}
+{% block body %}
+<a href="{{ url_for('create_post') }}">新規投稿へ</a><a href="{{ url_for('bookshelf') }}">本棚に戻る</a>
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endwith %}
+{% for post in Posts %}
+<p>題名：{{post.title}}</p>
+<p>感想：{{post.content}}</p>
+{% if post.author == current_user %}
+<a href="{{ url_for('delete_post', post_id = post.id) }}">投稿削除</a>
+{% endif %}
+<hr>
+{% endfor %}
+{% endblock %}
