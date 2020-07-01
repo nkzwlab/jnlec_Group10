@@ -2,11 +2,12 @@
 {% block head %} <title>user registration</title> {% endblock %}
 {% block body %}
 
-{% with messages = get_flashed_messages() %}
-{% for message in messages %}
-<p>{{message}}</p>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+<p class="alert alert-{{category}}">{{message}}</p>
 {% endfor %}
 {% endwith %}
+
 <h1>新規登録画面</h1>
 <form action="#" method="POST">
     <p>ユーザーネーム: <input type="text" name="username"> </p>
