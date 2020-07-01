@@ -155,8 +155,8 @@ def create_post():
         return render_template("create_post.html")
 
 
-@ app.route("/delete_post/", methods=["POST", "GET"])
-def delete_post():
+@ app.route("/delete_post/<int:post_id>/", methods=["POST", "GET"])
+def delete_post(post_id):
     # ここでDBから投稿削除。削除し終わったらリダイレクト
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
