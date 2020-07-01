@@ -1,0 +1,18 @@
+main {
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}

@@ -1,14 +1,17 @@
 {% extends "base.html" %}
-{% block head %} <title>add book</title> {% endblock %}
+{% block head %} <title>add book</title>
+<link rel="stylesheet" href="{{url_for('static',filename = 'main.css')}}">{% endblock %}
 {% block body %}
 
+<main>
 
+    <form action="#" method="POST">
+        <p　class="form-group">題名: <input type="text" name="title" class="form-control"> </p>
+        <p　class="form-group">作者: <input type="text" name="book_author" class="form-control"> </p>
+        <p> <input type="submit" value="追加" class="btn btn-primary mb-2"> </p>
+    </form>
 
-<form action="#" method="POST">
-    <p　class="form-group">題名: <input type="text" name="title" class="form-control"> </p>
-    <p　class="form-group">作者: <input type="text" name="book_author" class="form-control"> </p>
-    <p> <input type="submit" value="追加" class="btn btn-primary mb-2"> </p>
-</form>
+    <a href="{{ url_for('bookshelf') }}">キャンセル</a>
 
-<a href="{{ url_for('bookshelf') }}">本棚に戻る</a>
+</main>
 {% endblock %}

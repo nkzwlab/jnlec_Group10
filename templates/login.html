@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block head %} <title>login</title> {% endblock %}
+{% block head %} <title>login</title>
+<link rel="stylesheet" href="{{url_for('static',filename = 'forms.css')}}"> {% endblock %}
 {% block body %}
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -7,11 +8,16 @@
 <p class="alert alert-{{category}}">{{message}}</p>
 {% endfor %}
 {% endwith %}
-<h1>ログイン画面</h1>
-<form action="#" method="POST">
-    <p>ユーザーネーム: <input type="text" name="username"> </p>
-    <p>パスワード: <input type="text" name="password"> </p>
-    <p> <input class="btn btn-info" type="submit" value="ログイン"> </p>
-</form>
-
+<main>
+    <div class="wrapper">
+        <h1>ログイン画面</h1>
+        <br>
+        <form action="#" method="POST">
+            <p>ユーザーネーム <input type="text" name="username"> </p>
+            <p>パスワード <input type="text" name="password"> </p>
+            <p> <input class="btn btn-info" type="submit" value="ログイン"> </p>
+        </form>
+    </div>
+</main>
+</p>
 {% endblock %}
