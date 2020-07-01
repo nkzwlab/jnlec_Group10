@@ -2,6 +2,7 @@
 {% block head %} <title>Bookshelf</title> {% endblock %}
 {% block body %}
 
+<a class="btn btn-primary" href="{{ url_for('add_book') }}">本を追加する</a>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% for category, message in messages %}
@@ -13,11 +14,11 @@
 {% for book in Books %}
 <p>題名：{{book.title}}</p>
 <p>作者：{{book.book_author}}</p>
-<p>投稿者：{{book.author.username}}</p> 
+<p>投稿者：{{book.author.username}}</p>
 
-<a href="{{ url_for('update_book', book_id = book.id) }}">情報を更新</a>
-<a href="{{ url_for('delete_book', book_id = book.id) }}">本を削除</a>
+<a class="btn btn-outline-primary" href="{{ url_for('update_book', book_id = book.id) }}">情報を更新</a>
+<a class="btn btn-outline-danger" href="{{ url_for('delete_book', book_id = book.id) }}">本を削除</a>
 <hr>
 {% endfor %}
-<a href="{{ url_for('add_book') }}">本を追加する</a><a href="{{ url_for('post') }}">投稿サイトへ</a>
+
 {% endblock %}
