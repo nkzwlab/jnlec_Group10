@@ -1,0 +1,39 @@
+main {
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    vertical-align: middle;
+    background-image: url("bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.wrapper {
+    color: white;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.txt-wrapper {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+}
+
+h1 {
+    font-size: 6rem;
+}
+
+.btn {
+    margin: 2rem;
+}
