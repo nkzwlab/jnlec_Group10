@@ -15,7 +15,7 @@
     {% for book in Books %}
     <p>題名：{{book.title}}</p>
     <p>作者：{{book.book_author}}</p>
-    <p>投稿者：{{book.author.username}}</p>
+    <!-- <p>投稿者：{{book.author.username}}</p> -->
 
     <a class="btn btn-outline-primary" href="{{ url_for('update_book', book_id = book.id) }}">情報を更新</a>
     <a class="btn btn-outline-danger" href="{{ url_for('delete_book', book_id = book.id) }}">本を削除</a>

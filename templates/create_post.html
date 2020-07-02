@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{url_for('static',filename = 'main.css')}}"> {% endblock %}
 {% block body %}
 <main>
-    <form action="#" method="POST">
+    <form action="#" method="POST" autocomplete="off">
         <p　class="form-group">題名: <input type="text" name="title" class="form-control"> </p>
         <p　class="form-group">感想: <input type="text" name="content" class="form-control"> </p>
         <p> <input type="submit" value="投稿" class="btn btn-primary mb-2"> </p>
