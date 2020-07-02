@@ -4,7 +4,7 @@
 {% block body %}
 <main>
     <a class="btn btn-primary d-flex justify-content-center add" href="{{ url_for('add_book') }}">本を追加する</a>
-
+    <br>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% for category, message in messages %}
     <p class="alert alert-{{category}}">{{message}}</p>

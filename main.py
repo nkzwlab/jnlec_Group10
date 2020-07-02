@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta, datetime
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from flask_bcrypt import Bcrypt  # PWのハッシング用 6.30 hhiromasa
 # ログイン管理用 6.30 hhiromasa
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -130,7 +131,7 @@ def logout():
 @ app.route("/post/")
 @login_required
 def post():
-    Posts = Post.query.all()
+    Posts = Post.query.order_by(desc(Post.date_posted)).all()
     return render_template("post.html", Posts=Posts)
 
 
